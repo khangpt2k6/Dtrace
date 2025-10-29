@@ -94,38 +94,22 @@ dtrace -n 'vminfo:::pgpgin { @pg[execname] = sum(arg0); }'
 
 ## Key Advantages
 
-**Safe for Production Environments**
-- Minimal system overhead
-- Built-in safety checks
-- No system downtime required
-
-**Comprehensive Visibility**
-- Full-stack instrumentation
-- Kernel and user-space coverage
-- Hardware-level insights
-
-**Real-Time Monitoring**
-- Live event observation
-- Immediate data collection
-- No post-processing delays
-
-**Flexible Implementation**
-- Simple one-liners for quick analysis
-- Complex scripts for detailed investigation
-- Customizable aggregation functions
-
-**Efficient Data Processing**
-- In-kernel filtering and summarization
-- Reduces data transfer overhead
-- Scales to high-frequency events
-
-**Zero Preparation**
-- Works with existing binaries
-- No source code modification
-- No recompilation necessary
+| Advantage | Features |
+|-----------|----------|
+| **Safe for Production Environments** | Minimal system overhead<br>Built-in safety checks<br>No system downtime required |
+| **Comprehensive Visibility** | Full-stack instrumentation<br>Kernel and user-space coverage<br>Hardware-level insights |
+| **Real-Time Monitoring** | Live event observation<br>Immediate data collection<br>No post-processing delays |
+| **Flexible Implementation** | Simple one-liners for quick analysis<br>Complex scripts for detailed investigation<br>Customizable aggregation functions |
+| **Efficient Data Processing** | In-kernel filtering and summarization<br>Reduces data transfer overhead<br>Scales to high-frequency events |
+| **Zero Preparation** | Works with existing binaries<br>No source code modification<br>No recompilation necessary |
 
 ---
 
 ## Conclusion
 
 DTrace provides unprecedented visibility into system behavior with minimal performance impact. It enables detailed performance analysis, troubleshooting, and system understanding across the entire software stack, making it an essential tool for system administrators, performance engineers, and developers working with supported operating systems.
+
+
+
+
+
