@@ -21,7 +21,7 @@ This allows flexible filtering and summarization of trace data **in-kernel** bef
 Tracing which processes are executed when you run “man ls”, along with nanosecond timestamps:
 
 ```bash
-dtrace -n 'proc:::exec-success { printf("%d %s", timestamp, curpsinfo->pr_psargs); }'
+# **dtrace -n 'proc:::exec-success { printf("%d %s", timestamp, curpsinfo->pr_psargs); }'**
 dtrace: description 'proc:::exec-success ' matched 1 probe
 CPU     ID                  FUNCTION:NAME
   1    797       exec_common:exec-success 21935388676181394 man ls
