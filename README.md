@@ -4,27 +4,18 @@
 
 ## Overview
 
-DTrace stands for Dynamic Tracing. It is a performance analysis and troubleshooting framework built into certain operating systems including Solaris, FreeBSD, and macOS.
+DTrace stands for Dynamic Tracing. 
+DTrace
++1
 
-### Key Characteristics
+It is a performance‑analysis and troubleshooting framework / tool suite built into (or available for) certain operating systems (e.g., Solaris family, FreeBSD, macOS) by default. 
+DTrace
 
-**Comprehensive Instrumentation**
-- Instruments all levels of software stack
-- User applications and libraries
-- Operating system kernel
-- Device drivers and hardware interfaces
+What makes it special: it can instrument all levels of software – from user applications, through libraries, down into the kernel, device drivers, etc. 
+DTrace
++1
 
-**D Language**
-- Scripting language similar to C and awk
-- Enables flexible filtering and data aggregation
-- Processes data in-kernel before user-space delivery
-- Minimizes overhead for production environments
-
-**Production-Safe Design**
-- Minimal performance impact
-- Built-in safety mechanisms
-- Dynamic instrumentation without system restart
-- No recompilation or preparation required
+It provides its own scripting or command‑language (called “D” in the documentation) which is similar to C and awk; this allows flexible filtering and summarization of trace data in‑kernel before passing to user space, which helps keep overhead low enough for production usage
 
 ---
 
@@ -132,99 +123,6 @@ dtrace -n 'vminfo:::pgpgin { @pg[execname] = sum(arg0); }'
 - Works with existing binaries
 - No source code modification
 - No recompilation necessary
-
----
-
-## Platform Availability
-
-| Platform | Status |
-|----------|--------|
-| Solaris 10+ | Native support |
-| FreeBSD | Native support |
-| macOS | Native support |
-| Linux | eBPF/bpftrace (equivalent capabilities) |
-
----
-
-## Getting Started
-
-### Prerequisites
-
-**Basic Knowledge:**
-- Familiarity with C programming
-- Understanding of operating system concepts
-- Command-line proficiency
-
-**System Requirements:**
-- Root access or dtrace privileges
-- Compatible operating system
-- DTrace-enabled kernel
-
-### Learning Path
-
-1. **Start with one-liners** - Use simple command-line traces
-2. **Study examples** - Analyze pre-built scripts
-3. **Modify scripts** - Adapt existing tools to your needs
-4. **Write custom tools** - Create specialized monitoring solutions
-
-### Resources
-
-**DTraceToolkit**
-- Collection of production-ready scripts
-- Common monitoring scenarios
-- Ready-to-use tools
-
-**Documentation**
-- DTrace Guide (official reference)
-- Example scripts and tutorials
-- Community forums and mailing lists
-
----
-
-## Example Scenarios
-
-### Troubleshooting High CPU Usage
-
-Identify processes consuming CPU time, including short-lived processes that traditional tools miss:
-
-```bash
-dtrace -n 'syscall:::entry { @num[execname] = count(); }'
-```
-
-### Analyzing Disk Performance
-
-Determine if disk access patterns are random or sequential:
-
-```bash
-dtrace -n 'io:::start { printf("%d %s %d",pid,execname,args[0]->b_bcount); }'
-```
-
-### Memory Leak Detection
-
-Track anonymous memory allocation over time:
-
-```bash
-dtrace -n 'vminfo:::as_fault { @mem[execname] = sum(arg0); }'
-```
-
----
-
-## Best Practices
-
-**Performance Considerations**
-- Use predicates to filter events early
-- Aggregate data in-kernel when possible
-- Limit output frequency for high-rate events
-
-**Safety Guidelines**
-- Test scripts in non-production first
-- Use appropriate privileges
-- Monitor DTrace overhead
-
-**Script Development**
-- Start simple and iterate
-- Document probe points and logic
-- Version control your scripts
 
 ---
 
