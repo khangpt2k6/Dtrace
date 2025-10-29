@@ -4,18 +4,14 @@
 
 ## Overview
 
-DTrace stands for Dynamic Tracing. 
-DTrace
-+1
+**DTrace** stands for **Dynamic Tracing**.
 
-It is a performance‑analysis and troubleshooting framework / tool suite built into (or available for) certain operating systems (e.g., Solaris family, FreeBSD, macOS) by default. 
-DTrace
+It is a performance-analysis and troubleshooting framework / tool suite built into (or available for) certain operating systems (e.g., Solaris family, FreeBSD, macOS) by default.
 
-What makes it special: it can instrument all levels of software – from user applications, through libraries, down into the kernel, device drivers, etc. 
-DTrace
-+1
+What makes it special: it can instrument **all levels of software** – from user applications, through libraries, down into the kernel, device drivers, etc.
 
-It provides its own scripting or command‑language (called “D” in the documentation) which is similar to C and awk; this allows flexible filtering and summarization of trace data in‑kernel before passing to user space, which helps keep overhead low enough for production usage
+It provides its own scripting or command-language (called **“D”**) which is similar to **C** and **awk**.  
+This allows flexible filtering and summarization of trace data **in-kernel** before passing to user space, helping keep overhead low enough for production usage.
 
 ---
 
