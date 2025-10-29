@@ -1,6 +1,10 @@
 # DTrace 
 <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/aab15842-23c4-4cf2-bd96-588f36b72c29" />
 
+## Resources
+
+- [DTrace Official Site](https://dtrace.org/about/)
+- [Brendan Gregg’s DTrace Guide](https://www.brendangregg.com/dtrace.html)
 
 ## Overview
 
