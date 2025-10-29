@@ -34,7 +34,7 @@ CPU     ID                  FUNCTION:NAME
   1    797       exec_common:exec-success 21935388930987671 /usr/bin/mv -f /tmp/mpDKaiGn /usr/share/man/cat1/ls.1
   1    797       exec_common:exec-success 21935388948485045 sh -c less -siM /tmp/mpDKaiGn
   0    797       exec_common:exec-success 21935388971039204 less -siM /tmp/mpDKaiGn
-
+```
 
 ---
 
