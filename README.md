@@ -16,6 +16,25 @@ What makes it special: it can instrument **all levels of software** – from use
 
 It provides its own scripting or command-language (called **“D”**) which is similar to **C** and **awk**.  
 This allows flexible filtering and summarization of trace data **in-kernel** before passing to user space, helping keep overhead low enough for production usage.
+### Example
+
+Tracing which processes are executed when you run “man ls”, along with nanosecond timestamps:
+
+```bash
+dtrace -n 'proc:::exec-success { printf("%d %s", timestamp, curpsinfo->pr_psargs); }'
+dtrace: description 'proc:::exec-success ' matched 1 probe
+CPU     ID                  FUNCTION:NAME
+  1    797       exec_common:exec-success 21935388676181394 man ls
+  0    797       exec_common:exec-success 21935388840101743 sh -c cd /usr/share/man; tbl /usr/share/man/man1/ls.1 |neqn /usr/share/lib/pub/
+  1    797       exec_common:exec-success 21935388858652639 col -x
+  0    797       exec_common:exec-success 21935388863714971 neqn /usr/share/lib/pub/eqnchar -
+  0    797       exec_common:exec-success 21935388867119787 tbl /usr/share/man/man1/ls.1
+  1    797       exec_common:exec-success 21935388881310626 nroff -u0 -Tlp -man -
+  0    797       exec_common:exec-success 21935388922364648 sh -c trap '' 1 15; /usr/bin/mv -f /tmp/mpDKaiGn /usr/share/man/cat1/ls.1 2> /d
+  1    797       exec_common:exec-success 21935388930987671 /usr/bin/mv -f /tmp/mpDKaiGn /usr/share/man/cat1/ls.1
+  1    797       exec_common:exec-success 21935388948485045 sh -c less -siM /tmp/mpDKaiGn
+  0    797       exec_common:exec-success 21935388971039204 less -siM /tmp/mpDKaiGn
+
 
 ---
 
