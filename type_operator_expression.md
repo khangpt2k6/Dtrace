@@ -281,7 +281,3 @@ y = (int)x;
 - **`[]`** → Array or associative array access
 - **`->` `.`** → Struct/union member access
 - **`,`** → Expression sequencing (evaluation order not guaranteed)
-
----
-
-> **📚 Reference:** D Language Specification - Types, Operators, and Expressions
