@@ -1,169 +1,215 @@
-# D Language — Types, Operators, and Expressions Summary
+# D Language — Types, Operators, and Expressions
+
+---
 
 ## 2.1 Identifier Names & Keywords
 
-**Identifiers:**  
-Composed of letters, digits, and underscores (`_`); must start with a letter or `_`.  
-Names starting with `_` are reserved.  
+### Identifiers
 
-**Naming conventions:**  
-- `MixedCase` → variables  
-- `UPPERCASE` → constants  
+Composed of letters, digits, and underscores (`_`)
+- **Must start with:** letter or `_`
+- **Reserved:** Names starting with `_`
 
-**Keywords:**  
-- Superset of ANSI-C keywords  
-- `*` → reserved for future use  
-- `+` → D-specific (e.g., `self`, `translator`, `xlate`)  
-- No control-flow constructs (`if`, `for`, etc.) allowed yet  
-<img width="424" height="817" alt="image" src="https://github.com/user-attachments/assets/9a15aa6c-7613-46a8-a7cc-66c88fc71c09" />
+### Naming Conventions
+
+- **`MixedCase`** → variables
+- **`UPPERCASE`** → constants
+
+### Keywords
+
+- Superset of ANSI-C keywords
+- `*` → reserved for future use
+- `+` → D-specific (e.g., `self`, `translator`, `xlate`)
+- ⚠️ No control-flow constructs (`if`, `for`, etc.) allowed yet
+
+![D Language Keywords](https://github.com/user-attachments/assets/9a15aa6c-7613-46a8-a7cc-66c88fc71c09)
 
 ---
 
 ## 2.2 Data Types and Sizes
 
-Arithmetic is only allowed on **integers** (not floating-point types).  
+> **Note:** Arithmetic is only allowed on **integers** (not floating-point types)
 
-**Data model:** 32-bit or 64-bit (check via `isainfo -b`).  
+**Data model:** 32-bit or 64-bit (check via `isainfo -b`)
 
 ### Integer Types
 
-| Type       | 32-bit | 64-bit |
-|-------------|---------|---------|
-| `char`      | 1 byte  | 1 byte  |
-| `short`     | 2 bytes | 2 bytes |
-| `int`       | 4 bytes | 4 bytes |
-| `long`      | 4 bytes | 8 bytes |
-| `long long` | 8 bytes | 8 bytes |
+| Type         | 32-bit  | 64-bit  |
+|--------------|---------|---------|
+| `char`       | 1 byte  | 1 byte  |
+| `short`      | 2 bytes | 2 bytes |
+| `int`        | 4 bytes | 4 bytes |
+| `long`       | 4 bytes | 8 bytes |
+| `long long`  | 8 bytes | 8 bytes |
 
-- Default: signed unless specified as unsigned  
-- Type aliases: `int8_t`, `uint32_t`, `intptr_t`, etc.  
+**Properties:**
+- Default: **signed** (unless specified as `unsigned`)
+- Type aliases available: `int8_t`, `uint32_t`, `intptr_t`, etc.
 
 ### Floating-Point Types
 
-| Type          | Size     |
+| Type           | Size     |
 |----------------|----------|
 | `float`        | 4 bytes  |
 | `double`       | 8 bytes  |
 | `long double`  | 16 bytes |
 
-- No floating-point arithmetic — only tracing and formatting  
-- `string` → special type for ASCII strings  
+**Limitations:**
+- ❌ No floating-point arithmetic
+- ✅ Only tracing and formatting supported
+
+### Special Types
+
+- **`string`** → special type for ASCII strings
 
 ---
 
 ## 2.3 Constants
 
-**Integers:**  
-- Decimal (`123`), Octal (`0123`), Hex (`0x123`)  
+### Integer Constants
 
-**Suffixes:**  
-- `u/U`: unsigned  
-- `l/L`: long  
-- `ll/LL`: long long  
-- `ul/UL`, `ull/ULL`: unsigned variants  
+**Formats:**
+- **Decimal:** `123`
+- **Octal:** `0123`
+- **Hexadecimal:** `0x123`
 
-**Floating-point constants:**  
-- Decimal or exponent form  
-- Default type: `double`  
-- Suffixes: `f/F` (float), `l/L` (long double)  
+**Suffixes:**
 
-**Character constants:**  
-- Examples: `'a'`, `'\\n'`  
-- Type: `int` (ASCII value)  
-- Supports escape sequences (`\n`, `\t`, `\\`, etc.)  
+| Suffix        | Type            |
+|---------------|-----------------|
+| `u` / `U`     | unsigned        |
+| `l` / `L`     | long            |
+| `ll` / `LL`   | long long       |
+| `ul` / `UL`   | unsigned long   |
+| `ull` / `ULL` | unsigned long long |
 
-**Strings:**  
-- Example: `"hello"`  
-- Automatically null-terminated (`\0`)  
-- Type: `string`  
+### Floating-Point Constants
 
-<img width="502" height="391" alt="image" src="https://github.com/user-attachments/assets/5f6c3a78-3e15-4987-a3d2-34e21a628f53" />
+- **Forms:** decimal or exponent notation
+- **Default type:** `double`
+- **Suffixes:**
+  - `f` / `F` → `float`
+  - `l` / `L` → `long double`
+
+### Character Constants
+
+**Examples:** `'a'`, `'\n'`
+
+- **Type:** `int` (ASCII value)
+- **Escape sequences:** `\n`, `\t`, `\\`, `\0`, etc.
+
+### String Constants
+
+**Example:** `"hello"`
+
+- **Type:** `string`
+- Automatically null-terminated with `\0`
+
+![Escape Sequences Reference](https://github.com/user-attachments/assets/5f6c3a78-3e15-4987-a3d2-34e21a628f53)
 
 ---
 
 ## 2.4 Arithmetic Operators
 
-| Operator | Meaning        |
-|-----------|----------------|
-| `+`       | addition       |
-| `-`       | subtraction    |
-| `*`       | multiplication |
-| `/`       | division       |
-| `%`       | modulus        |
+| Operator | Operation      |
+|----------|----------------|
+| `+`      | Addition       |
+| `-`      | Subtraction    |
+| `*`      | Multiplication |
+| `/`      | Division       |
+| `%`      | Modulus        |
 
-- Works only on integers and pointers  
-- Division by zero → runtime error  
-- No overflow/underflow detection  
-- Use parentheses `()` for precedence control  
+**Restrictions:**
+- ✅ Works only on **integers** and **pointers**
+- ⚠️ Division by zero → **runtime error**
+- ⚠️ No overflow/underflow detection
+- 💡 Use parentheses `()` for precedence control
 
 ---
 
 ## 2.5 Relational Operators
 
-| Operator | Meaning     |
-|-----------|-------------|
-| `<`, `<=`, `>`, `>=` | comparison |
-| `==`, `!=` | equality |
+| Operator | Meaning              |
+|----------|----------------------|
+| `<`      | Less than            |
+| `<=`     | Less than or equal   |
+| `>`      | Greater than         |
+| `>=`     | Greater than or equal|
+| `==`     | Equal to             |
+| `!=`     | Not equal to         |
 
-- Returns `1` (true) or `0` (false)  
-- Can compare integers, pointers, or strings (similar to `strcmp()`)  
+**Returns:** `1` (true) or `0` (false)
+
+**Can compare:**
+- Integers
+- Pointers
+- Strings (similar to `strcmp()`)
 
 ---
 
 ## 2.6 Logical Operators
 
-| Operator | Meaning |
-|-----------|----------|
-| `&&` | AND |
-| `\|\|` | OR |
-| `^^` | XOR |
-| `!` | NOT (unary) |
+| Operator | Operation |
+|----------|-----------|
+| `&&`     | AND       |
+| `||`     | OR        |
+| `^^`     | XOR       |
+| `!`      | NOT       |
 
-- `&&` and `||` use short-circuit evaluation  
-- Operands: integers or pointers (non-zero = true)  
+**Features:**
+- `&&` and `||` use **short-circuit evaluation**
+- **Operands:** integers or pointers (non-zero = true)
 
 ---
 
 ## 2.7 Bitwise Operators
 
-| Operator | Meaning |
-|-----------|----------|
-| `&` | AND |
-| `\|` | OR |
-| `^` | XOR |
-| `<<` | left shift |
-| `>>` | right shift |
-| `~` | bitwise NOT (unary) |
+| Operator | Operation      |
+|----------|----------------|
+| `&`      | AND            |
+| `|`      | OR             |
+| `^`      | XOR            |
+| `<<`     | Left shift     |
+| `>>`     | Right shift    |
+| `~`      | NOT (unary)    |
 
-- Shifting signed values → arithmetic shift  
-- Shifting by invalid counts → undefined behavior (compiler error if detectable)  
+**Notes:**
+- Shifting signed values → **arithmetic shift**
+- Invalid shift counts → **undefined behavior** (compiler error if detectable)
 
 ---
 
 ## 2.8 Assignment Operators
 
-| Operator | Example | Meaning |
-|-----------|----------|----------|
-| `=` | `x = y` | assign |
-| `+=` | `x += y` | add and assign |
-| `-=` | `x -= y` | subtract and assign |
-| `*=` | `x *= y` | multiply and assign |
-| `/=` | `x /= y` | divide and assign |
-| `%=` | `x %= y` | mod and assign |
-| `&=`, `|=`, `^=`, `<<=`, `>>=` | bitwise & shift assignments |
+| Operator | Example   | Meaning              |
+|----------|-----------|----------------------|
+| `=`      | `x = y`   | Assign               |
+| `+=`     | `x += y`  | Add and assign       |
+| `-=`     | `x -= y`  | Subtract and assign  |
+| `*=`     | `x *= y`  | Multiply and assign  |
+| `/=`     | `x /= y`  | Divide and assign    |
+| `%=`     | `x %= y`  | Modulus and assign   |
+| `&=`     | `x &= y`  | Bitwise AND assign   |
+| `|=`     | `x |= y`  | Bitwise OR assign    |
+| `^=`     | `x ^= y`  | Bitwise XOR assign   |
+| `<<=`    | `x <<= y` | Left shift assign    |
+| `>>=`    | `x >>= y` | Right shift assign   |
 
-- Only modifiable variables/arrays can be assigned  
-- Each assignment returns the new value of the left operand  
+**Rules:**
+- Only modifiable variables/arrays can be assigned
+- Each assignment returns the new value of the left operand
 
 ---
 
 ## 2.9 Increment / Decrement
 
-Operators: `++` and `--` (prefix or postfix).  
-- If undeclared → implicitly becomes `int64_t`  
-- Works on integers or pointers  
-  - Integer → ±1  
-  - Pointer → ±(size of type pointed to)  
+**Operators:** `++` and `--` (prefix or postfix)
+
+**Behavior:**
+- If variable undeclared → implicitly becomes `int64_t`
+- Works on integers or pointers
+  - **Integer:** ± 1
+  - **Pointer:** ± (size of type pointed to)
 
 ---
 
@@ -172,54 +218,70 @@ Operators: `++` and `--` (prefix or postfix).
 **Syntax:**
 ```c
 x = i == 0 ? "zero" : "non-zero";
-Evaluates the first condition; chooses the second or third expression
+```
 
-Result types must be compatible (e.g., both strings or both integers)
+**Rules:**
+- Evaluates the first condition
+- Chooses second expression if true, third if false
+- Result types must be **compatible** (both strings or both integers)
 
-2.11 Type Conversions
-Follow “usual arithmetic conversions” (ANSI-C rules).
+---
 
-Rank order:
+## 2.11 Type Conversions
 
-c
-Copy code
+Follows **"usual arithmetic conversions"** (ANSI-C rules)
+
+### Rank Order
+
+```
 char < short < int < long < long long
-Unsigned types rank slightly higher than their signed counterparts
+```
 
-Lower-ranked operand is promoted to higher-ranked type
+- Unsigned types rank slightly higher than signed counterparts
+- Lower-ranked operand promoted to higher-ranked type
 
-Explicit cast example:
+### Explicit Casting
 
-c
-Copy code
+**Syntax:**
+```c
 y = (int)x;
-Sign extension for signed types
+```
 
-Zero-fill for unsigned types
+**Behavior:**
+- **Signed types:** sign extension
+- **Unsigned types:** zero-fill
+- ❌ No float arithmetic → no float conversions
 
-No float arithmetic → no float conversions
+---
 
-2.12 Operator Precedence & Associativity
-Precedence (High → Low)	Operators	Associativity
-Function, array, member access	() [] -> .	left
-Unary ops	! ~ ++ -- + - * & (type) sizeof stringof offsetof xlate	right
-Multiplication/division	* / %	left
-Addition/subtraction	+ -	left
-Shifts	<< >>	left
-Relational	< <= > >=	left
-Equality	== !=	left
-Bitwise	& ^ |	left
-Logical	&& ^^ ||	left
-Conditional	?:	right
-Assignment	= += -= *= /= ...	right
-Comma	,	left
+## 2.12 Operator Precedence & Associativity
 
-Notes:
+| Precedence | Operators | Associativity |
+|------------|-----------|---------------|
+| **Highest** | `()` `[]` `->` `.` | Left |
+| | `!` `~` `++` `--` `+` `-` `*` `&` `(type)` `sizeof` `stringof` `offsetof` `xlate` | Right |
+| | `*` `/` `%` | Left |
+| | `+` `-` | Left |
+| | `<<` `>>` | Left |
+| | `<` `<=` `>` `>=` | Left |
+| | `==` `!=` | Left |
+| | `&` | Left |
+| | `^` | Left |
+| | `|` | Left |
+| | `&&` | Left |
+| | `^^` | Left |
+| | `||` | Left |
+| | `?:` | Right |
+| | `=` `+=` `-=` `*=` `/=` `%=` `&=` `|=` `^=` `<<=` `>>=` | Right |
+| **Lowest** | `,` | Left |
 
-() → function calls
+### Operator Categories
 
-[] → array or associative array access
+- **`()`** → Function calls
+- **`[]`** → Array or associative array access
+- **`->` `.`** → Struct/union member access
+- **`,`** → Expression sequencing (evaluation order not guaranteed)
 
--> and . → struct/union member access
+---
 
-Comma , is used for expression sequencing (evaluation order not guaranteed)
+> **📚 Reference:** D Language Specification - Types, Operators, and Expressions
