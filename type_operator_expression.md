@@ -126,7 +126,7 @@ Arithmetic is only allowed on **integers** (not floating-point types).
 | Operator | Meaning |
 |-----------|----------|
 | `&` | AND |
-| `|` | OR |
+| `\|` | OR |
 | `^` | XOR |
 | `<<` | left shift |
 | `>>` | right shift |
