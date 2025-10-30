@@ -6,6 +6,21 @@
 - [DTrace Official Site](https://dtrace.org/about/)
 - [Brendan Gregg’s DTrace Guide](https://www.brendangregg.com/dtrace.html)
 
+## 📚 Modules
+
+### 1. [Introduction](https://github.com/khangpt2k6/Dtrace/blob/main/README.md)
+Getting started with DTrace basics and probe syntax.
+
+### 2. [Types, Operators & Expressions](https://github.com/khangpt2k6/Dtrace/blob/main/type_operator_expression.md)
+Data types, operators, and expression evaluation in D language.
+
+### 3. [Variables](https://github.com/khangpt2k6/Dtrace/blob/main/variable.md)
+Variable scopes, declarations, and state management.
+
+### 4. [Pointers & Arrays](https://github.com/khangpt2k6/Dtrace/blob/main/pointers_array.md)
+Pointer fundamentals, arrays, pointer arithmetic, and address spaces.
+
+
 ## Overview
 
 **DTrace** stands for **Dynamic Tracing**.
