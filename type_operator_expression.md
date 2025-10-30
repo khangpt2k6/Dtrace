@@ -15,6 +15,7 @@ Names starting with `_` are reserved.
 - `*` → reserved for future use  
 - `+` → D-specific (e.g., `self`, `translator`, `xlate`)  
 - No control-flow constructs (`if`, `for`, etc.) allowed yet  
+<img width="424" height="817" alt="image" src="https://github.com/user-attachments/assets/9a15aa6c-7613-46a8-a7cc-66c88fc71c09" />
 
 ---
 
