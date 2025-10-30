@@ -12,7 +12,8 @@
 
 It is a performance-analysis and troubleshooting framework / tool suite built into (or available for) certain operating systems (e.g., Solaris family, FreeBSD, macOS) by default.
 
-What makes it special: it can instrument **all levels of software** – from user applications, through libraries, down into the kernel, device drivers, etc.
+> **Note:**  
+> What makes it special is that it can instrument **every layer of the software stack** — from user applications and system libraries all the way down to the kernel and device drivers.
 
 It provides its own scripting or command-language (called **“D”**) which is similar to **C** and **awk**.  
 This allows flexible filtering and summarization of trace data **in-kernel** before passing to user space, helping keep overhead low enough for production usage.
