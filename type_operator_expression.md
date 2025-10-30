@@ -169,7 +169,57 @@ Operators: `++` and `--` (prefix or postfix).
 
 ## 2.10 Conditional Expressions
 
-**Syntax:**  
+**Syntax:**
 ```c
 x = i == 0 ? "zero" : "non-zero";
+Evaluates the first condition; chooses the second or third expression
 
+Result types must be compatible (e.g., both strings or both integers)
+
+2.11 Type Conversions
+Follow “usual arithmetic conversions” (ANSI-C rules).
+
+Rank order:
+
+c
+Copy code
+char < short < int < long < long long
+Unsigned types rank slightly higher than their signed counterparts
+
+Lower-ranked operand is promoted to higher-ranked type
+
+Explicit cast example:
+
+c
+Copy code
+y = (int)x;
+Sign extension for signed types
+
+Zero-fill for unsigned types
+
+No float arithmetic → no float conversions
+
+2.12 Operator Precedence & Associativity
+Precedence (High → Low)	Operators	Associativity
+Function, array, member access	() [] -> .	left
+Unary ops	! ~ ++ -- + - * & (type) sizeof stringof offsetof xlate	right
+Multiplication/division	* / %	left
+Addition/subtraction	+ -	left
+Shifts	<< >>	left
+Relational	< <= > >=	left
+Equality	== !=	left
+Bitwise	& ^ |	left
+Logical	&& ^^ ||	left
+Conditional	?:	right
+Assignment	= += -= *= /= ...	right
+Comma	,	left
+
+Notes:
+
+() → function calls
+
+[] → array or associative array access
+
+-> and . → struct/union member access
+
+Comma , is used for expression sequencing (evaluation order not guaranteed)
