@@ -77,6 +77,8 @@ Arithmetic is only allowed on **integers** (not floating-point types).
 - Automatically null-terminated (`\0`)  
 - Type: `string`  
 
+<img width="502" height="391" alt="image" src="https://github.com/user-attachments/assets/5f6c3a78-3e15-4987-a3d2-34e21a628f53" />
+
 ---
 
 ## 2.4 Arithmetic Operators
