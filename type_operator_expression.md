@@ -152,7 +152,7 @@ Composed of letters, digits, and underscores (`_`)
 | Operator | Operation |
 |----------|-----------|
 | `&&`     | AND       |
-| `||`     | OR        |
+| `\|\|`   | OR        |
 | `^^`     | XOR       |
 | `!`      | NOT       |
 
@@ -167,7 +167,7 @@ Composed of letters, digits, and underscores (`_`)
 | Operator | Operation      |
 |----------|----------------|
 | `&`      | AND            |
-| `|`      | OR             |
+| `\|`     | OR             |
 | `^`      | XOR            |
 | `<<`     | Left shift     |
 | `>>`     | Right shift    |
@@ -190,7 +190,7 @@ Composed of letters, digits, and underscores (`_`)
 | `/=`     | `x /= y`  | Divide and assign    |
 | `%=`     | `x %= y`  | Modulus and assign   |
 | `&=`     | `x &= y`  | Bitwise AND assign   |
-| `|=`     | `x |= y`  | Bitwise OR assign    |
+| `\|=`    | `x \|= y` | Bitwise OR assign    |
 | `^=`     | `x ^= y`  | Bitwise XOR assign   |
 | `<<=`    | `x <<= y` | Left shift assign    |
 | `>>=`    | `x >>= y` | Right shift assign   |
@@ -267,12 +267,12 @@ y = (int)x;
 | | `==` `!=` | Left |
 | | `&` | Left |
 | | `^` | Left |
-| | `|` | Left |
+| | `\|` | Left |
 | | `&&` | Left |
 | | `^^` | Left |
-| | `||` | Left |
+| | `\|\|` | Left |
 | | `?:` | Right |
-| | `=` `+=` `-=` `*=` `/=` `%=` `&=` `|=` `^=` `<<=` `>>=` | Right |
+| | `=` `+=` `-=` `*=` `/=` `%=` `&=` `\|=` `^=` `<<=` `>>=` | Right |
 | **Lowest** | `,` | Left |
 
 ### Operator Categories
