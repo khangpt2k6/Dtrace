@@ -1,10 +1,20 @@
 # DTrace 
 <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/aab15842-23c4-4cf2-bd96-588f36b72c29" />
 
-## Resources
+## 📚 Modules
 
-- [DTrace Official Site](https://dtrace.org/about/)
-- [Brendan Gregg’s DTrace Guide](https://www.brendangregg.com/dtrace.html)
+### 1. [Introduction](https://github.com/khangpt2k6/Dtrace/blob/main/README.md)
+Getting started with DTrace basics and probe syntax.
+
+### 2. [Types, Operators & Expressions](https://github.com/khangpt2k6/Dtrace/blob/main/type_operator_expression.md)
+Data types, operators, and expression evaluation in D language.
+
+### 3. [Variables](https://github.com/khangpt2k6/Dtrace/blob/main/variable.md)
+Variable scopes, declarations, and state management.
+
+### 4. [Pointers & Arrays](https://github.com/khangpt2k6/Dtrace/blob/main/pointers_array.md)
+Pointer fundamentals, arrays, pointer arithmetic, and address spaces.
+
 
 ## Overview
 
@@ -125,13 +135,10 @@ dtrace -n 'vminfo:::pgpgin { @pg[execname] = sum(arg0); }'
 | **Efficient Data Processing** | In-kernel filtering and summarization<br>Reduces data transfer overhead<br>Scales to high-frequency events |
 | **Zero Preparation** | Works with existing binaries<br>No source code modification<br>No recompilation necessary |
 
----
 
-## Conclusion
+## Resources
 
-DTrace provides unprecedented visibility into system behavior with minimal performance impact. It enables detailed performance analysis, troubleshooting, and system understanding across the entire software stack, making it an essential tool for system administrators, performance engineers, and developers working with supported operating systems.
-
-
-
+- [DTrace Official Site](https://dtrace.org/about/)
+- [Brendan Gregg’s DTrace Guide](https://www.brendangregg.com/dtrace.html)
 
 
