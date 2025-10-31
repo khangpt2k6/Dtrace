@@ -12,9 +12,11 @@ Data types, operators, and expression evaluation in D language.
 ### 3. [Variables](https://github.com/khangpt2k6/Dtrace/blob/main/variable.md)
 Variable scopes, declarations, and state management.
 
-### 4. [Pointers & Arrays](https://github.com/khangpt2k6/Dtrace/blob/main/pointers_array.md)
-Pointer fundamentals, arrays, pointer arithmetic, and address spaces.
+### 4. [Program Structure](https://github.com/khangpt2k6/Dtrace/blob/main/structure.md)
+How D programs are organized, including modules, functions, and control flow.
 
+### 5. [Pointers & Arrays](https://github.com/khangpt2k6/Dtrace/blob/main/pointers_array.md)
+Pointer fundamentals, arrays, pointer arithmetic, and address spaces.
 
 ## Overview
 
