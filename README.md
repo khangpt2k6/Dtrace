@@ -18,6 +18,9 @@ How D programs are organized, including modules, functions, and control flow.
 ### 5. [Pointers & Arrays](https://github.com/khangpt2k6/Dtrace/blob/main/pointers_array.md)
 Pointer fundamentals, arrays, pointer arithmetic, and address spaces.
 
+### 6. [Strings](https://github.com/khangpt2k6/Dtrace/blob/main/string.md)
+String manipulation
+
 ## Overview
 
 **DTrace** stands for **Dynamic Tracing**.
