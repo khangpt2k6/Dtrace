@@ -281,3 +281,92 @@ y = (int)x;
 - **`[]`** → Array or associative array access
 - **`->` `.`** → Struct/union member access
 - **`,`** → Expression sequencing (evaluation order not guaranteed)
+
+---
+
+## 2.13 Resource Utilization Monitoring
+
+Resource monitoring tools (such as `dtrace`, `perf`, or dynamic tracing frameworks) provide detailed insights into application performance. Understanding the output format is critical for analyzing CPU, memory, and network usage.
+
+### Example Profiling Output
+
+```
+CPU     ID                  FUNCTION:NAME
+  1    797       exec_common:exec-success 21935388676181394 man ls
+```
+
+### CPU Field Interpretation
+
+**What it indicates:**
+- **`CPU`** column shows which **CPU core** (or logical processor) executed the traced function
+- In the example: `1` means the function executed on CPU core 1
+- On multi-core systems, this helps identify uneven load distribution
+
+**Measuring CPU Utilization Percentage:**
+
+1. **Sample Collection:** Profiling tools collect samples at regular intervals (e.g., 100 Hz = every 10ms)
+2. **Per-CPU Calculation:**
+   ```
+   CPU_Utilization_% = (Samples_on_CPU / Total_Samples) × 100
+   ```
+3. **System-Wide Calculation:**
+   ```
+   System_CPU_% = (Total_Samples_Across_All_CPUs / (Total_Time × CPU_Count)) × 100
+   ```
+4. **Example:**
+   - 10,000 total samples collected over 10 seconds on a 4-core system
+   - CPU 1 had 4,000 samples → **40% utilization**
+   - System: (10,000 / (10 × 4)) × 100 = **25% average utilization**
+
+### Memory Usage Monitoring
+
+**Field Interpretation:**
+- **Stack depth** → shows memory allocation call chains
+- **Heap allocation size** → bytes allocated per function
+- **Memory lifetime** → tracks allocation-to-deallocation duration
+
+**Measuring Memory Utilization:**
+
+```
+Total_Memory_% = (Used_Memory / Total_Available_Memory) × 100
+
+Example:
+- Used: 2 GB, Available: 8 GB
+- Utilization: (2 / 8) × 100 = 25%
+```
+
+**Key Metrics:**
+- **Peak memory:** Maximum memory consumed during execution
+- **Average memory:** Mean memory usage over time window
+- **Memory leaks:** Allocations without corresponding deallocations
+
+### Network Usage Monitoring
+
+**Field Interpretation:**
+- **Bytes sent/received** → network traffic volume
+- **Packet count** → number of packets transmitted
+- **Connection state** → active/closed/listening sockets
+
+**Measuring Network Utilization:**
+
+```
+Network_Utilization_% = (Bytes_Transferred / Available_Bandwidth) × 100
+
+Example:
+- Bytes/sec: 5 MB/s on 100 Mbps (12.5 MB/s) link
+- Utilization: (5 / 12.5) × 100 = 40%
+```
+
+**Key Metrics:**
+- **Throughput:** Bytes per second
+- **Latency:** Round-trip time (RTT) for packets
+- **Packet loss:** Dropped packets / total packets sent
+- **Connections:** Active socket count
+
+### Integration with D Language Analysis
+
+These monitoring techniques can be applied to:
+- **Profile D language operators** and their efficiency
+- **Identify bottlenecks** in type conversions (§2.11)
+- **Optimize expression evaluation** (§2.12 precedence)
+- **Track memory allocation** during pointer operations

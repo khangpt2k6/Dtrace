@@ -51,6 +51,15 @@ CPU     ID                  FUNCTION:NAME
   0    797       exec_common:exec-success 21935388971039204 less -siM /tmp/mpDKaiGn
 ```
 
+### How to read this output
+
+- **CPU**: the logical CPU core where the probe fired (e.g., `1` = core 1). This is not a percentage by itself.
+- **ID**: the DTrace probe ID (internal identifier for the enabled probe). It is not a PID.
+- **FUNCTION:NAME**: the provider function and probe name that fired (here `exec_common:exec-success`).
+- **Payload**: the rest is produced by your `printf` — first the nanosecond `timestamp`, then the process arguments (e.g., `man ls`).
+
+> Note: To compute CPU utilization percentage, you need to aggregate time or samples over an interval (see CPU monitoring below). The CPU column alone only shows where an event occurred.
+
 ---
 
 ## Common Use Cases
@@ -85,6 +94,47 @@ dtrace -n 'sysinfo:::writech { @bytes[execname] = sum(arg0); }'
 dtrace -n 'profile-99 /pid == 189 && arg1/ { @[ustack()] = count(); }'
 ```
 
+**CPU utilization (sampling-based):** Low-overhead approximation of on-CPU share.
+```bash
+sudo dtrace -n '
+profile-99
+{
+  @samples[execname, pid] = count();
+}
+tick-1s
+{
+  normalize(@samples, 99);                /* samples/sec per core */
+  printa("%-16s pid=%-6d cpu%≈%d\n", @samples);
+  clear(@samples);
+}'
+```
+- Interpretation: per-process cpu% ≈ samples_per_sec. On multi-core systems, a busy process can exceed 100% by using multiple cores.
+
+**CPU utilization (scheduler-based, precise on-CPU time):**
+```bash
+sudo dtrace -n '
+sched:::on-cpu
+/ pid != 0 /
+{
+  self->start = timestamp;
+}
+sched:::off-cpu
+/ self->start /
+{
+  @oncpu_ns[execname, pid] = sum(timestamp - self->start);
+  self->start = 0;
+}
+tick-1s
+{
+  /* Convert to ms for readability */
+  normalize(@oncpu_ns, 1000000);
+  printa("%-16s pid=%-6d oncpu_ms=%-8d\n", @oncpu_ns);
+  clear(@oncpu_ns);
+}'
+```
+- Per-process CPU% (per core) in the interval: `cpu% = oncpu_ms / 1000 × 100`.
+- System average across `N` cores: `sum(oncpu_ms) / (1000 × N) × 100`.
+
 ### 3. Disk I/O Analysis
 
 **Real-time disk activity monitoring:**
@@ -100,17 +150,29 @@ This command displays:
 
 ### 4. Network Activity
 
-**TCP connection tracking:**
+**Per-process throughput (bytes/sec) using IP providers:**
 ```bash
-# Monitor TCP send/receive operations
-# Identify network-intensive processes
-# Debug connection issues
+sudo dtrace -n '
+ip:::send
+/ pid != 0 /
+{
+  @tx[execname, pid] = sum(args[2]->ip_plength);
+}
+ip:::receive
+/ pid != 0 /
+{
+  @rx[execname, pid] = sum(args[2]->ip_plength);
+}
+tick-1s
+{
+  printa("TX %-16s pid=%-6d %10@d B/s\n", @tx);
+  printa("RX %-16s pid=%-6d %10@d B/s\n", @rx);
+  clear(@tx); clear(@rx);
+}'
 ```
 
-Use cases:
-- Identify processes generating network traffic
-- Measure bandwidth consumption per application
-- Troubleshoot connectivity problems
+- **Link utilization %** for a link with capacity `S` bytes/sec: `(TX_Bps + RX_Bps) / S × 100`.
+- Replace or complement with `tcp:::send`/`tcp:::receive` if you want TCP-only.
 
 ### 5. Memory Analysis
 
@@ -123,6 +185,23 @@ dtrace -n 'vminfo:::as_fault { @mem[execname] = sum(arg0); }'
 ```bash
 dtrace -n 'vminfo:::pgpgin { @pg[execname] = sum(arg0); }'
 ```
+
+**Per-process resident memory (RSS) in KB:**
+```bash
+sudo dtrace -n '
+tick-1s
+/ pid != 0 /
+{
+  @rss_kb[execname, pid] = quantize(curpsinfo->pr_rssize * (pagesize / 1024));
+}
+tick-5s
+{
+  printa("%-16s pid=%-6d RSS(KB)\n%@d", @rss_kb);
+  clear(@rss_kb);
+}'
+```
+- **Memory %** vs total RAM: `memory% = rss_bytes / total_ram_bytes × 100`.
+- Use allocation probes (e.g., `syscall::mmap*:entry/return`, `syscall::munmap*:entry`) to study growth and leaks.
 
 ---
 
